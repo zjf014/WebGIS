@@ -1,0 +1,69 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Intro to layers | Sample | ArcGIS API for JavaScript 4.23</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.23/"></script>
+
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #layerToggle {
+            top: 20px;
+            right: 20px;
+            position: absolute;
+            z-index: 99;
+            background-color: white;
+            border-radius: 8px;
+            padding: 10px;
+            opacity: 0.75;
+        }
+    </style>
+
+    <script>
+        require(["esri/Map", "esri/views/SceneView", "esri/layers/TileLayer"], function (Map, SceneView, TileLayer) {
+
+            const housingLayer = new TileLayer({
+                url: "https://tiles.arcgis.com/tiles/nGt4QxSblgDfeJn9/arcgis/rest/services/New_York_Housing_Density/MapServer",
+                id: "ny-housing",
+                opacity: 0.9
+            });
+
+            const openspacelayer = new TileLayer({
+                url: "https://tiles.arcgis.com/tiles/nGt4QxSblgDfeJn9/arcgis/rest/services/New_York_Open_Space/MapServer?cacheKey=857da344cef81f13"
+            })
+
+            const map = new Map({
+                basemap: "oceans",
+                layers: [housingLayer]
+            });
+
+            map.add(openspacelayer);
+
+            const view = new SceneView({
+                container: "viewDiv",
+                map: map
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="viewDiv"></div>
+    <span id="layerToggle" class="esri-widget">
+        <input type="checkbox" id="streetsLayer" /> Transportation
+    </span>
+</body>
+
+</html>

@@ -1,0 +1,61 @@
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="viewport" content="initial-scale=1,maximum-scale=1,user-scalable=no" />
+    <title>Intro to layers | Sample | ArcGIS API for JavaScript 4.23</title>
+
+    <link rel="stylesheet" href="https://js.arcgis.com/4.23/esri/themes/light/main.css" />
+    <script src="https://js.arcgis.com/4.23/"></script>
+
+    <style>
+        html,
+        body,
+        #viewDiv {
+            padding: 0;
+            margin: 0;
+            height: 100%;
+            width: 100%;
+        }
+
+        #layerToggle {
+            top: 20px;
+            right: 20px;
+            position: absolute;
+            z-index: 99;
+            background-color: white;
+            border-radius: 8px;
+            padding: 10px;
+            opacity: 0.75;
+        }
+    </style>
+
+    <script>
+        require(["esri/Map", "esri/views/MapView", "esri/layers/FeatureLayer"], function (Map, MapView, FeatureLayer) {
+
+            const china = new FeatureLayer({
+                url: "http://43.138.81.24:6080/arcgis/rest/services/China/%E7%9C%81%E7%BA%A7%E8%A1%8C%E6%94%BF%E5%8C%BA/MapServer/1",
+            });
+
+            const map = new Map({
+                //basemap: "oceans",
+                layers: [china]
+            });
+
+            const view = new MapView({
+                container: "viewDiv",
+                map: map
+            });
+
+        });
+    </script>
+</head>
+
+<body>
+    <div id="viewDiv"></div>
+    <span id="layerToggle" class="esri-widget">
+        <input type="checkbox" id="streetsLayer" /> Transportation
+    </span>
+</body>
+
+</html>
